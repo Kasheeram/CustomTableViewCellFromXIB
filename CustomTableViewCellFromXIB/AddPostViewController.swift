@@ -12,7 +12,7 @@ protocol MyProtocol {
     func setResultOfBusinessLogic(valueSent: [String])
 }
 
-class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UITextViewDelegate {
+class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UITextViewDelegate,UITextFieldDelegate {
     @IBOutlet weak var categoryTxtField: UITextField!
     @IBOutlet weak var titalTxtField: UITextField!
     @IBOutlet weak var descTxtView: UITextView!
@@ -30,6 +30,7 @@ class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     var picker = UIPickerView()
     override func viewDidLoad() {
         super.viewDidLoad()
+        titalTxtField.delegate = self
         descTxtView.delegate = self
         descTxtView.text = "Description (max 128) character"
         descTxtView.textColor = UIColor.lightGray
@@ -216,4 +217,19 @@ class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        let characterLimit = 24
+        let newText = NSString(string: titalTxtField.text!).replacingCharacters(in: range, with: string)
+        let numberOfChars = newText.characters.count
+        return numberOfChars < characterLimit
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let newText = (descTxtView.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.characters.count
+        return numberOfChars < 128
+    }
+    
 }
