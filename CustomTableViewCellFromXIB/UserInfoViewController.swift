@@ -82,5 +82,8 @@ class UserInfoViewController: UIViewController {
         
     }
     
-
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
