@@ -33,6 +33,7 @@ class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         descTxtView.delegate = self
         descTxtView.text = "Description (max 128) character"
         descTxtView.textColor = UIColor.lightGray
+        priority = "High"
         
         labelButton = UIBarButtonItem()
         labelButton?.tintColor = UIColor.black
@@ -196,13 +197,14 @@ class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         var size = categry.characters.count
         var titl = titalTxtField.text as! String
         var tsize = titl.characters.count
-        if size > 0 && tsize > 0{
-            if descTxtView.text.characters.count > 1 {
+        var desc = descTxtView.text as! String
+        var descSize = desc.characters.count
+        
+        if size > 0 && tsize > 0 && descSize > 0{
                 let postData = [descTxtView.text,categoryTxtField.text,priority,titalTxtField.text]
                 myProtocol?.setResultOfBusinessLogic(valueSent: postData as! [String])
                 navigationController?.popViewController(animated: true)
                 alertm()
-            }
         }else{
             alertm()
             
