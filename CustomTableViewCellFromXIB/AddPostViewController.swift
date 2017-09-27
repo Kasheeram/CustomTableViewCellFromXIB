@@ -192,8 +192,26 @@ class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     }
     
     func submitData(){
-        let postData = [descTxtView.text,categoryTxtField.text,priority,titalTxtField.text]
-        myProtocol?.setResultOfBusinessLogic(valueSent: postData as! [String])
-        navigationController?.popViewController(animated: true)
+        var categry = categoryTxtField.text as! String
+        var size = categry.characters.count
+        var titl = titalTxtField.text as! String
+        var tsize = titl.characters.count
+        if size > 0 && tsize > 0{
+            if descTxtView.text.characters.count > 1 {
+                let postData = [descTxtView.text,categoryTxtField.text,priority,titalTxtField.text]
+                myProtocol?.setResultOfBusinessLogic(valueSent: postData as! [String])
+                navigationController?.popViewController(animated: true)
+                alertm()
+            }
+        }else{
+            alertm()
+            
+        }
+    }
+    
+    func alertm(){
+        let alert = UIAlertController(title: "Alert", message: "Please select and fill all requirements", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

@@ -15,7 +15,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var mySegmentControl: UISegmentedControl!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var searchController: UISearchBar!
-    var cData = [[String:[String]]]()
+    //var cData = [[String:[String]]]()
 
     let cellData = ["kashee","Rajendra","Mohan","Venky","Ankit"]
     var cellData2 = ["gandhi ji","barak ubama","steve jobs","sundar pichai","modi ji"]
@@ -27,17 +27,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        cData.append(["gandhi ji":["gandhi ji","gandhi","Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source."]])
-        cData.append(["barak ubama":["barak ubama","barak ubama","Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source."]])
-        cData.append(["steve jobs":["steve jobs","steve_jobs","Python’s standard library is very extensive, offering a wide range of facilities as indicated by the long table of contents listed below. The library contains built-in modules (written in C)"]])
-        cData.append(["sundar pichai":["sundar pichai","sundar-pichai","Swift is a fantastic way to write software, whether it’s for phones, desktops, servers, or anything else that runs code. It’s a safe."]])
-        cData.append(["modi ji":["modi ji","modi ji","JDK 7 is a superset of JRE 7, and contains everything that is in JRE 7, plus tools such as the compilers and debuggers necessary for developing applets and applications."]])
-        
-        
+    
         filteredData = cellData2
         searchController.delegate = self
-        
         mySegmentControl.setImage(textEmbededImage(image: UIImage(named:"graduate-cap")!, string: "UNIVERSITY BOARD", color: UIColor.black), forSegmentAt: 0)
         mySegmentControl.setImage(textEmbededImage(image: UIImage(named:"male-university-graduate-silhouette-with-the-cap")!, string: "STUDENT BOARD", color: UIColor.black), forSegmentAt: 1)
     // Added a shadow to button
@@ -96,7 +88,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if mySegmentControl.selectedSegmentIndex == 0{
             let cell = Bundle.main.loadNibNamed("UniversityTableViewCell", owner: self, options: nil)?.first as! UniversityTableViewCell
-            cell.txtLabel.text = cellData[indexPath.row]
+            if indexPath.row < 5{
+                cell.txtLabel.text = cellData[indexPath.row]
+            }
+            
             return cell
             
         }else{
@@ -210,9 +205,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         filteredData.append("gandhi ji")
         cellData2 = filteredData
         descriptns.append(valueSent[0])
-        cData.append(["gandhi ji":["gandhi ji","gandhi",valueSent[0]]])
         self.tableView.reloadData()
-        print("123=\(cData)")
     }
 }
 
