@@ -12,7 +12,7 @@ protocol MyProtocol {
     func setResultOfBusinessLogic(valueSent: [String])
 }
 
-class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UITextViewDelegate,UITextFieldDelegate {
+class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UITextViewDelegate,UITextFieldDelegate{
     @IBOutlet weak var categoryTxtField: UITextField!
     @IBOutlet weak var titalTxtField: UITextField!
     @IBOutlet weak var descTxtView: UITextView!
@@ -21,8 +21,10 @@ class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     @IBOutlet weak var highButton: UIButton!
     @IBOutlet weak var mediumButton: UIButton!
     @IBOutlet weak var lowButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     var labelButton:UIBarButtonItem?
     var myProtocol:MyProtocol?
+    private var lastContentOffset: CGFloat = 0
     
     let category = ["General","OBC","SC","ST"]
     var priority:String?
@@ -30,6 +32,8 @@ class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     var picker = UIPickerView()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, -1);
         titalTxtField.delegate = self
         descTxtView.delegate = self
         descTxtView.text = "Description (max 128) character"
@@ -231,5 +235,5 @@ class AddPostViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         let numberOfChars = newText.characters.count
         return numberOfChars < 128
     }
-    
+
 }
